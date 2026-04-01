@@ -1,10 +1,13 @@
 .navbar {
-  background-color: var(--background);
-  border-bottom: 1px solid var(--border);
+  background-color: var(--glass-bg);
+  border-bottom: 1px solid var(--glass-border);
   position: sticky;
   top: 0;
   z-index: 100;
   padding: 1rem 0;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
 }
 
 .navContainer {
@@ -18,48 +21,53 @@
   font-weight: 800;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.75rem;
   color: var(--foreground);
-  transition: opacity 0.2s;
+  text-decoration: none;
+  font-style: italic;
+  letter-spacing: 0.05em;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
 }
 
-.logo:hover {
-  opacity: 0.8;
+.icon {
+  color: var(--primary);
+  filter: drop-shadow(0 0 8px var(--primary));
 }
 
 .navLinks {
   display: flex;
   list-style: none;
-  gap: 2rem;
+  gap: 2.5rem;
 }
 
 .navLinks a {
-  font-weight: 500;
+  font-weight: 600;
+  font-size: 0.95rem;
   color: var(--foreground);
-  opacity: 0.7;
-  transition: all 0.2s;
-}
-
-.navLinks a:hover {
-  opacity: 1;
-  color: var(--primary);
+  opacity: 0.8;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  display: inline-block;
 }
 
 .adminBtn {
-  background-color: var(--primary);
-  color: white;
-  padding: 0.5rem 1rem;
-  border-radius: var(--radius);
+  background: transparent;
+  color: var(--foreground);
+  padding: 0.5rem 1.5rem;
+  border-radius: 9999px;
+  border: 1px solid var(--accent);
   font-weight: 600;
-  transition: background-color 0.2s;
-}
-
-.adminBtn:hover {
-  background-color: var(--primary-hover);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.85rem;
+  text-decoration: none;
+  display: inline-block;
 }
 
 @media (max-width: 768px) {
   .navLinks {
-    display: none; /* simple mobile fallback, ideally add a hamburger menu */
+    display: none;
   }
 }
+

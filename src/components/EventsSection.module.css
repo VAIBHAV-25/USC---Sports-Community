@@ -1,32 +1,51 @@
 .section {
-  padding: 5rem 0;
+  padding: 8rem 0;
   background-color: var(--background);
+  position: relative;
 }
 
 .heading {
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 3rem;
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 3.5rem;
   text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.highlight {
+  color: var(--primary);
+  text-shadow: 0 0 15px var(--primary-transparent);
 }
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2.5rem;
+  perspective: 1000px;
 }
 
 .loading {
   text-align: center;
-  opacity: 0.6;
+  color: var(--primary);
+  opacity: 0.8;
   font-size: 1.125rem;
+  animation: pulse 1.5s infinite ease-in-out;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
 }
 
 .empty {
   text-align: center;
   opacity: 0.6;
   font-style: italic;
-  padding: 2rem;
-  background-color: var(--border);
+  padding: 3rem;
+  background-color: var(--glass-bg);
+  border: 1px solid var(--glass-border);
   border-radius: var(--radius);
+  backdrop-filter: blur(10px);
 }
+

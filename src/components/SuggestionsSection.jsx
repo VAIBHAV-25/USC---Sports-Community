@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import styles from "./SuggestionsSection.module.css";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function SuggestionsSection() {
   const [suggestions, setSuggestions] = useState([]);
@@ -58,28 +59,63 @@ export default function SuggestionsSection() {
     setIsSubmitting(false);
   };
 
+  const listVariants = {
+    hidden: { opacity: 0 },
+    visible: { 
+      opacity: 1, 
+      transition: { staggerChildren: 0.1 } 
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, x: -20 },
+    visible: { opacity: 1, x: 0, transition: { type: "spring", stiffness: 100 } }
+  };
+
   return (
     <section id="suggestions" className={styles.section}>
       <div className="container">
-        <h2 className={styles.heading}>Suggest a Sport</h2>
-        <p className={styles.subheading}>Don&apos;t see your favorite? Suggest it here and upvote others!</p>
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.5 }}
+        >
+          <h2 className={styles.heading}>Suggest a <span className={styles.highlight}>Sport</span></h2>
+          <p className={styles.subheading}>Don&apos;t see your favorite? Suggest it here and upvote others!</p>
+        </motion.div>
         
         <div className={styles.contentWrapper}>
-          <div className={styles.formPanel}>
+          <motion.div 
+            className={styles.formPanel}
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <div className={styles.panelGlow}></div>
             <form onSubmit={handleSubmit} className={styles.form}>
               <div className={styles.formGroup}>
                 <label htmlFor="sportName">Sport Name</label>
                 <input type="text" id="sportName" required value={formData.sportName} onChange={(e) => setFormData({...formData, sportName: e.target.value})} placeholder="e.g. Badminton" />
+                <div className={styles.inputLine}></div>
               </div>
               <div className={styles.formGroup}>
                 <label htmlFor="sportDesc">Description (Optional)</label>
                 <textarea id="sportDesc" rows="3" value={formData.description} onChange={(e) => setFormData({...formData, description: e.target.value})} placeholder="Why should we play this?"></textarea>
+                <div className={styles.inputLine}></div>
               </div>
-              <button type="submit" className={styles.submitBtn} disabled={isSubmitting}>
+              <motion.button 
+                type="submit" 
+                className={styles.submitBtn} 
+                disabled={isSubmitting}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
                 {isSubmitting ? "Adding..." : "Add Suggestion"}
-              </button>
+              </motion.button>
             </form>
-          </div>
+          </motion.div>
 
           <div className={styles.listPanel}>
             {loading ? (
@@ -87,20 +123,41 @@ export default function SuggestionsSection() {
             ) : suggestions.length === 0 ? (
               <p className={styles.msg}>No suggestions yet. Be the first!</p>
             ) : (
-              <ul className={styles.list}>
-                {suggestions.map((s) => (
-                  <li key={s._id} className={styles.listItem}>
-                    <div className={styles.itemInfo}>
-                      <h4 className={styles.itemName}>{s.sportName}</h4>
-                      {s.description && <p className={styles.itemDesc}>{s.description}</p>}
-                    </div>
-                    <button className={styles.upvoteBtn} onClick={() => handleUpvote(s._id)}>
-                      <span className={styles.upvoteIcon}>▲</span>
-                      {s.upvotes}
-                    </button>
-                  </li>
-                ))}
-              </ul>
+              <motion.ul 
+                className={styles.list}
+                variants={listVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+              >
+                <AnimatePresence>
+                  {suggestions.map((s) => (
+                    <motion.li 
+                      key={s._id} 
+                      className={styles.listItem}
+                      variants={itemVariants}
+                      layout
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.9 }}
+                    >
+                      <div className={styles.itemInfo}>
+                        <h4 className={styles.itemName}>{s.sportName}</h4>
+                        {s.description && <p className={styles.itemDesc}>{s.description}</p>}
+                      </div>
+                      <motion.button 
+                        className={styles.upvoteBtn} 
+                        onClick={() => handleUpvote(s._id)}
+                        whileHover={{ scale: 1.1, backgroundColor: "rgba(0, 240, 255, 0.2)" }}
+                        whileTap={{ scale: 0.9 }}
+                      >
+                        <span className={styles.upvoteIcon}>▲</span>
+                        {s.upvotes}
+                      </motion.button>
+                    </motion.li>
+                  ))}
+                </AnimatePresence>
+              </motion.ul>
             )}
           </div>
         </div>
@@ -108,3 +165,4 @@ export default function SuggestionsSection() {
     </section>
   );
 }
+
