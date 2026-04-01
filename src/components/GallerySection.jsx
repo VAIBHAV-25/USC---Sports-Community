@@ -24,13 +24,21 @@ export default function GallerySection() {
     hidden: { opacity: 0 },
     visible: { 
       opacity: 1, 
-      transition: { staggerChildren: 0.1 } 
+      transition: { staggerChildren: 0.15, type: "spring", bounce: 0.4 } 
     }
   };
 
   const itemVariants = {
     hidden: { opacity: 0, scale: 0.8 },
-    visible: { opacity: 1, scale: 1, transition: { type: "spring", stiffness: 100 } }
+    visible: { opacity: 1, scale: 1, transition: { type: "spring", bounce: 0.6 } }
+  };
+
+  const floatVariants = {
+    float: {
+      y: [0, -15, 0],
+      rotate: [-5, 5, -5],
+      transition: { duration: 2, repeat: Infinity, ease: "easeInOut" }
+    }
   };
 
   return (
@@ -40,7 +48,7 @@ export default function GallerySection() {
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.5 }}
+          transition={{ type: "spring", bounce: 0.5, duration: 0.8 }}
         >
           <h2 className={styles.heading}>Past Events <span className={styles.highlight}>Gallery</span></h2>
           <p className={styles.subheading}>Highlights from our recent meetups.</p>
@@ -49,7 +57,19 @@ export default function GallerySection() {
         {loading ? (
           <p className={styles.msg}>Loading gallery...</p>
         ) : items.length === 0 ? (
-          <p className={styles.msg}>No gallery items available right now.</p>
+          <motion.div 
+            className={styles.emptyState}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ type: "spring", stiffness: 200, damping: 15 }}
+          >
+            <motion.div className={styles.iconWrapper} variants={floatVariants} animate="float">
+              <span className={styles.emojiLarge}>📸</span>
+              <span className={styles.emojiLarge}>🏟️</span>
+            </motion.div>
+            <h3 className={styles.emptyTitle}>No highlights captured.</h3>
+            <p className={styles.emptyDesc}>The gallery is empty right now. Check back after our next major event!</p>
+          </motion.div>
         ) : (
           <motion.div 
             className={styles.grid}

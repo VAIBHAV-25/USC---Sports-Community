@@ -63,13 +63,21 @@ export default function SuggestionsSection() {
     hidden: { opacity: 0 },
     visible: { 
       opacity: 1, 
-      transition: { staggerChildren: 0.1 } 
+      transition: { staggerChildren: 0.15, type: "spring", bounce: 0.4 } 
     }
   };
 
   const itemVariants = {
     hidden: { opacity: 0, x: -20 },
-    visible: { opacity: 1, x: 0, transition: { type: "spring", stiffness: 100 } }
+    visible: { opacity: 1, x: 0, transition: { type: "spring", bounce: 0.5 } }
+  };
+
+  const popVariants = {
+    pop: {
+      scale: [1, 1.2, 1],
+      rotate: [0, 15, -15, 0],
+      transition: { duration: 0.6, repeat: Infinity, repeatDelay: 2 }
+    }
   };
 
   return (
@@ -79,7 +87,7 @@ export default function SuggestionsSection() {
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.5 }}
+          transition={{ type: "spring", bounce: 0.5, duration: 0.7 }}
         >
           <h2 className={styles.heading}>Suggest a <span className={styles.highlight}>Sport</span></h2>
           <p className={styles.subheading}>Don&apos;t see your favorite? Suggest it here and upvote others!</p>
@@ -121,7 +129,19 @@ export default function SuggestionsSection() {
             {loading ? (
               <p className={styles.msg}>Loading suggestions...</p>
             ) : suggestions.length === 0 ? (
-              <p className={styles.msg}>No suggestions yet. Be the first!</p>
+              <motion.div 
+                className={styles.emptyState}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ type: "spring", stiffness: 200, damping: 15 }}
+              >
+                <div className={styles.iconWrapper}>
+                  <motion.span className={styles.emojiLarge} variants={popVariants} animate="pop">💡</motion.span>
+                  <motion.span className={styles.emojiLarge} variants={popVariants} animate="pop" transition={{ delay: 0.3 }}>🏈</motion.span>
+                </div>
+                <h3 className={styles.emptyTitle}>Be the first to call a play!</h3>
+                <p className={styles.emptyDesc}>We rely on community suggestions. What sport should we organize next?</p>
+              </motion.div>
             ) : (
               <motion.ul 
                 className={styles.list}

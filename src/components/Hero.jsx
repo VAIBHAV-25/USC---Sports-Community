@@ -13,11 +13,11 @@ export default function Hero() {
   };
 
   const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
+    hidden: { y: 30, opacity: 0 },
     visible: { 
       y: 0, 
       opacity: 1,
-      transition: { type: "spring", stiffness: 100 }
+      transition: { type: "spring", bounce: 0.6, duration: 0.8 }
     }
   };
 

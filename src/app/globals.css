@@ -1,19 +1,19 @@
 :root {
   --background: #09090b; /* Very dark slate/black */
   --foreground: #f8fafc; /* Crisp white for text */
-  --primary: #00f0ff; /* Neon cyan */
-  --primary-hover: #00e0ee;
-  --primary-transparent: rgba(0, 240, 255, 0.15);
-  --secondary: #ff003c; /* Neon magenta/pink */
-  --secondary-transparent: rgba(255, 0, 60, 0.15);
+  --primary: #00ffaa; /* Vibrant neon green (sports turf/tennis) */
+  --primary-hover: #33ffbb;
+  --primary-transparent: rgba(0, 255, 170, 0.2);
+  --secondary: #ff5500; /* Vibrant basketball orange */
+  --secondary-transparent: rgba(255, 85, 0, 0.2);
   --accent: #b026ff; /* Neon purple */
-  --border: rgba(255, 255, 255, 0.1);
-  --radius: 12px;
+  --border: rgba(255, 255, 255, 0.15); /* Slightly more visible border */
+  --radius: 24px; /* Playful round borders */
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
   
   /* Glassmorphism helpers */
-  --glass-bg: rgba(15, 23, 42, 0.4); /* Dark blue/slate slate with opacity */
-  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-bg: rgba(15, 23, 42, 0.6); /* Slightly darker for better contrast */
+  --glass-border: rgba(255, 255, 255, 0.15);
 }
 
 

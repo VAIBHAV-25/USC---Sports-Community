@@ -209,6 +209,43 @@
   border-radius: var(--radius);
 }
 
+.emptyState {
+  text-align: center;
+  padding: 4rem 2rem;
+  background-color: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: calc(var(--radius) * 1.5);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.iconWrapper {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.emojiLarge {
+  font-size: 3.5rem;
+  filter: drop-shadow(0 5px 15px rgba(0, 255, 170, 0.5));
+  display: inline-block;
+}
+
+.emptyTitle {
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  color: var(--foreground);
+}
+
+.emptyDesc {
+  font-size: 1.1rem;
+  color: var(--foreground);
+  opacity: 0.8;
+  line-height: 1.6;
+}
 @media (max-width: 768px) {
   .contentWrapper {
     flex-direction: column;

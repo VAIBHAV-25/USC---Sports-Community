@@ -24,7 +24,15 @@ export default function EventsSection() {
     hidden: { opacity: 0 },
     visible: { 
       opacity: 1,
-      transition: { staggerChildren: 0.15 }
+      transition: { staggerChildren: 0.15, type: "spring", bounce: 0.4 }
+    }
+  };
+
+  const bounceVariants = {
+    hover: {
+      y: [0, -15, 0],
+      rotate: [0, 15, -15, 0],
+      transition: { duration: 0.6, repeat: Infinity, ease: "easeInOut" }
     }
   };
 
@@ -42,6 +50,7 @@ export default function EventsSection() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
+          transition={{ type: "spring", bounce: 0.5 }}
         >
           Upcoming <span className={styles.highlight}>Events</span>
         </motion.h2>
@@ -49,7 +58,20 @@ export default function EventsSection() {
         {loading ? (
           <p className={styles.loading}>Loading events...</p>
         ) : events.length === 0 ? (
-          <p className={styles.empty}>No upcoming events found. Check back later!</p>
+          <motion.div 
+            className={styles.emptyState}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ type: "spring", stiffness: 200, damping: 12 }}
+          >
+            <motion.div className={styles.iconWrapper} variants={bounceVariants} animate="hover">
+              <span className={styles.emoji}>⚽</span>
+              <span className={styles.emoji}>🏀</span>
+              <span className={styles.emoji}>🎾</span>
+            </motion.div>
+            <h3 className={styles.emptyTitle}>The field is empty!</h3>
+            <p className={styles.emptyDesc}>No games lined up yet. Suggest a new match to get things started.</p>
+          </motion.div>
         ) : (
           <motion.div 
             className={styles.grid}

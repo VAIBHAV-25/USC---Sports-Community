@@ -24,7 +24,15 @@ export default function PollsSection() {
     hidden: { opacity: 0 },
     visible: { 
       opacity: 1,
-      transition: { staggerChildren: 0.15 }
+      transition: { staggerChildren: 0.15, type: "spring", bounce: 0.4 }
+    }
+  };
+
+  const wobbleVariants = {
+    wobble: {
+      rotate: [0, -10, 10, -10, 10, 0],
+      scale: [1, 1.1, 1],
+      transition: { duration: 1.5, repeat: Infinity, repeatDelay: 1 }
     }
   };
 
@@ -41,6 +49,7 @@ export default function PollsSection() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
+          transition={{ type: "spring", bounce: 0.5 }}
         >
           <h2 className={styles.heading}>Community <span className={styles.highlight}>Polls</span></h2>
           <p className={styles.subheading}>Have your say on what we play next!</p>
@@ -49,7 +58,19 @@ export default function PollsSection() {
         {loading ? (
           <p className={styles.loading}>Loading polls...</p>
         ) : polls.length === 0 ? (
-          <p className={styles.empty}>No active polls right now.</p>
+          <motion.div 
+            className={styles.emptyState}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ type: "spring", stiffness: 200, damping: 15 }}
+          >
+            <motion.div className={styles.iconWrapper} variants={wobbleVariants} animate="wobble">
+              <span className={styles.emojiLarge}>🎯</span>
+              <span className={styles.emojiLarge}>⏱️</span>
+            </motion.div>
+            <h3 className={styles.emptyTitle}>The crowd is waiting...</h3>
+            <p className={styles.emptyDesc}>There are no active polls right now. We need you to take the court!</p>
+          </motion.div>
         ) : (
           <motion.div 
             className={styles.grid}

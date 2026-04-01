@@ -64,14 +64,8 @@
 }
 
 .table th {
-  background-color: rgba(0,0,0,0.02);
+  background-color: rgba(255,255,255,0.05);
   font-weight: 600;
-}
-
-@media (prefers-color-scheme: dark) {
-  .table th {
-    background-color: rgba(255,255,255,0.02);
-  }
 }
 
 .list {
@@ -82,16 +76,10 @@
 }
 
 .listItem {
-  background-color: rgba(0,0,0,0.02);
+  background-color: rgba(255,255,255,0.03);
   padding: 1.5rem;
   border-radius: var(--radius);
   border: 1px solid var(--border);
-}
-
-@media (prefers-color-scheme: dark) {
-  .listItem {
-    background-color: rgba(255,255,255,0.02);
-  }
 }
 
 .listItem p {
