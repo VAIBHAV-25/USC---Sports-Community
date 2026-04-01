@@ -1,0 +1,36 @@
+.section {
+  padding: 5rem 0;
+  background-color: var(--background);
+  border-top: 1px dashed var(--border);
+}
+
+.heading {
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.subheading {
+  text-align: center;
+  opacity: 0.7;
+  margin-bottom: 3rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2rem;
+}
+
+.loading, .empty {
+  text-align: center;
+  opacity: 0.6;
+}
+
+.empty {
+  padding: 2rem;
+  background-color: var(--border);
+  border-radius: var(--radius);
+  font-style: italic;
+}

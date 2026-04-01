@@ -1,0 +1,32 @@
+.section {
+  padding: 5rem 0;
+  background-color: var(--background);
+}
+
+.heading {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 3rem;
+  text-align: center;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.loading {
+  text-align: center;
+  opacity: 0.6;
+  font-size: 1.125rem;
+}
+
+.empty {
+  text-align: center;
+  opacity: 0.6;
+  font-style: italic;
+  padding: 2rem;
+  background-color: var(--border);
+  border-radius: var(--radius);
+}
