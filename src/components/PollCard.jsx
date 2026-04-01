@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import styles from "./PollCard.module.css";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
 
 export default function PollCard({ poll }) {
   const [voted, setVoted] = useState(false);
@@ -37,11 +37,38 @@ export default function PollCard({ poll }) {
     visible: { opacity: 1, scale: 1, transition: { type: "spring", stiffness: 100 } }
   };
 
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const mouseXSpring = useSpring(x, { stiffness: 300, damping: 20 });
+  const mouseYSpring = useSpring(y, { stiffness: 300, damping: 20 });
+
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["10deg", "-10deg"]);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-10deg", "10deg"]);
+
+  const handleMouseMove = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+    x.set(mouseX / width - 0.5);
+    y.set(mouseY / height - 0.5);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
+
   return (
     <motion.div 
       className={styles.card}
       variants={cardVariants}
-      whileHover={{ y: -8, boxShadow: "0 10px 30px rgba(0, 240, 255, 0.15)" }}
+      style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      whileHover={{ scale: 1.02, boxShadow: "0 20px 40px rgba(255, 85, 0, 0.15)" }}
     >
       <h3 className={styles.question}>{updatedPoll.question}</h3>
       <div className={styles.options}>

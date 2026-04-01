@@ -139,6 +139,20 @@
   z-index: 1;
 }
 
+.floatingEmoji {
+  position: absolute;
+  font-size: 4rem;
+  z-index: 1;
+  opacity: 0.4;
+  pointer-events: auto;
+  cursor: pointer;
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.2));
+}
+
+.emoji1 { top: 15%; left: 15%; }
+.emoji2 { top: 60%; right: 10%; font-size: 5.5rem; }
+.emoji3 { bottom: 15%; left: 25%; font-size: 3.5rem; }
+
 @media (max-width: 640px) {
   .hero {
     padding: 6rem 0;
